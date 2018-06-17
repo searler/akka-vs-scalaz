@@ -72,7 +72,7 @@ object UsingZio extends StrictLogging {
 
   def clientSend(socket: ConnectedSocket, parent: IOQueue[RouterMessage], sendQueue: IOQueue[String]): IO[Nothing, Fiber[Unit, Unit]] =
     sendQueue
-      .take[Nothing]
+      .take[scalaz.zio.Void]
       .widenError[Throwable]
       .flatMap(msg => IO.syncThrowable(socket.send(msg)))
       .attempt[Unit]

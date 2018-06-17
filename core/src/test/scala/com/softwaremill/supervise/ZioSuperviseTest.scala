@@ -29,7 +29,7 @@ class ZioSuperviseTest
 
     val t = for {
       br <- UsingZio.broadcast(testData.queueConnector)
-      _ <- br.inbox.offer[Nothing](UsingZio.Subscribe(msg => IO.sync(receivedMessages.add(msg))))
+      _ <- br.inbox.offer[scalaz.zio.Void](UsingZio.Subscribe(msg => IO.sync(receivedMessages.add(msg))))
       _ <- IO
         .sync {
           eventually {
